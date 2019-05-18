@@ -1,0 +1,155 @@
+<div class="backgroundImage" style="height:860px;"ng-init="allcompanieslist()">
+<div class="container ">
+<div class="row rigisterform">
+	<div class="col-md-7 ">
+		<div class="resources">
+			<h2 class="resources-sol" style="margin-top:50px">RESOURCE ADDA</h2>			
+			<div><h5 class="res" >Staff Augmentation Simplified</h5></div>
+		</div>
+       
+  </div>
+  <div class="col-md-5">
+            <form class="bgcolors" name="frm" ng-submit="addData(registration)">
+			<div class="spinner" ng-show="loading"> 
+            <img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" alt="Yükleniyor..."/>
+			<br>
+			<p style = "color:white">Loading...</p>
+           </div>
+		   <div ng-hide="loading">
+		   <h3 class="form-group" style="color:#337ab7;"><b>Register for ResourceAdda...</b></h3>
+           <!--  <h3 class="co">Register for ResourceAdda...</h3> -->
+            <input type="hidden" ng-model="registration.planId">
+                     <div  class="form-group">
+                            <label class="control-label l1" for="name">Name of the Company</label><span class="text-warning">*</span>
+                            <input type="text" class="form-control" name="companyname" ng-model="registration.companyName" placeholder="Enter Company Name"  maxlength="40" required> 
+                            <span class="text-warning" ng-show="frm.companyname.$dirty && frm.companyname.$error.required">Required.!</span>  
+                            <span class="text-warning" ng-show="frm.companyname.$error.pattern && frm.companyname.$invalid ">Enter Alphabets only..!</span>
+                       </div>
+					   <div class="form-group">
+                       <b class="l1">Registration Type<span class="text-warning">*</span> :</b>
+                       		<!-- <label ng-repeat="role in registrationtype">
+  								<input type="checkbox" checklist-model="registration.registrationType" checklist-value="role"><b class="l1"> {{role}}</b> &nbsp;
+							</label> -->
+							<input type="radio" ng-model="registration.registrationType" value="customer" name="registrationType" ng-click="allcompanieslist()" required><b class="l1">Customer</b>&nbsp;&nbsp;
+							<input type="radio" ng-model="registration.registrationType" value="vendor" name="registrationType" ng-click="allcompanieslist_customer()"><b class="l1">Vendor</b>
+                       </div> 
+                       <span class="text-warning"
+								ng-show="frm.registrationType.$dirty && frm.registrationType.$invalid">Please
+								select Registration Type .!!</span>
+ 						 <div ng-switch="registration.registrationType">
+ 						<div ng-switch-when="customer">
+   						<b class="l1">MSA for Customers:</b> <select ng-model="registration.sowUser" ng-value="x._id" multiple name="sowUser" class="form-control" ng-options="x._id as x.companyName for x in Users" multiple>
+																				
+						</select>
+ 						</div>
+ 						<div ng-switch-when="vendor">
+   						<b class="l1">MSA for Vendors<span class="red">*</span>:</b><select ng-model="registration.sowUser"  ng-value="x._id" multiple name="sowUser" class="form-control" ng-options="x._id as x.companyName for x in Users" multiple>
+   						
+							</select>
+ 						</div>
+ 
+						</div> 
+					
+                       
+                 <div  class="form-group">
+                            <label class="control-label l1" for="name">Your Name</label><span class="text-warning">*</span>
+                            <input type="text" class="form-control" name="person" ng-model="registration.contactPerson" placeholder="Enter Your Name" ng-pattern="/^[a-zA-Z\s\w]*$/" required> 
+                            <span class="text-warning" ng-show="frm.person.$dirty && frm.person.$error.required">Required.!</span>
+                            <span class="text-warning" ng-show="frm.person.$error.pattern && frm.person.$invalid ">Enter Alphabets only..!</span>
+                       </div>
+                       
+          
+                       
+                       <div class="form-group" >
+                            <label class="control-label l1" for="name">Email ID</label><span class="text-warning">*</span>
+                            <input type="email" class="form-control" name="email"  ng-model="registration.mailId" placeholder="Enter Mail ID" ng-pattern="/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/"required> 
+                            <span class="text-warning" ng-show="frm.email.$dirty && frm.email.$error.required">Required.!</span>
+                            <span class="text-warning" ng-show="frm.email.$error.pattern && frm.email.$invalid ">Enter valid email..!</span>
+                           
+                        </div>
+
+                        <div  class="form-group">
+                          <label class="control-label l1" for="mobile">Contact Number</label><span class="text-warning">*</span>
+                          <input type="text" class="form-control" name="mobile" ng-model="registration.mobile" ng-pattern="/^[6-9][0-9]{9}$/" maxlength="10" placeholder="Enter your Contact Number" required>
+                          <span class="text-warning" ng-show="frm.mobile.$dirty && frm.mobile.$error.required">Required.!</span>
+                          <span class="text-warning" ng-show="frm.mobile.$error.pattern && frm.mobile.$invalid ">Should contain 10 digits and start with [6-9]</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label l1" for="name">Website URL</label><span class="text-warning">*</span>
+                            <input type="text" class="form-control" name="website" ng-model="registration.url" ng-pattern="/^(http[s]?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-\.@:%_\+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/g;"
+                            placeholder="Ex: http://www.daiict.ac.in" required> 
+                            <span class="text-warning" ng-show="frm.website.$dirty && frm.website.$error.required">Required.!</span>
+                            <span class="text-warning" ng-show="frm.website.$error.pattern && frm.website.$invalid ">Enter valid url..!</span>
+                            <span></span>
+                       </div>
+                        <b class="text-center"><span class="text-warning">* fields  are mandatory</span></b>
+                        
+                        <div class="form-group pull-right">
+                          <a type="submit" class="btn btn-primary" data-toggle="tab" ui-sref="login" >Back</a>
+                          <button type="submit" class="btn btn-primary" ng-disabled="frm.$invalid" >Submit</button>
+                          </div>  
+                       </div>    
+                    </form>
+    </div>
+	
+	
+	
+    
+</div>
+</div>
+</div>
+<footer class="footer">
+<div class="footercolor">
+    <div class="container">
+ <div class="row">
+<div class="col-md-3">
+    <ul>
+    	<li class="lbrand padd"><a>Learn About ResourceAdda</a></li>
+        <li class="line"><a ui-sref=".aboutRA1" class="anchor">About Us</a></li>
+        <li class="line"><a ui-sref=".companyProfile" class="anchor">Company Profile</a></li>
+        <li class="line"><a ui-sref=".contactSale" class="anchor">Contact Sales</a></li>     
+    </ul>
+</div>
+<div class="col-md-3 lines">
+        
+      <ul class="designs">
+         <li class="lbrand padd"><a>ResourceAdda Services</a></li>
+        <li  class="line" > <a ui-sref=".report" class="anchor">The Report</a></li>
+        <li  class="line"> <a ui-sref=".openWeb" class="anchor">Open Web</a></li>
+        <li  class="line">  <a ui-sref=".browseJobs" class="anchor">Browse Jobs</a></li>
+      </ul>
+</div>
+<div class="col-md-3 lines">
+    
+    <ul class="designs">
+    	<li class="lbrand padd"><a>ResourceAdda Sites</a></li>
+    	<li  class="line"> <a ui-sref=".siteBrowseCompanies" class="anchor">Browse Companies</a></li>
+        <li  class="line"><a ui-sref=".siteSkillsCenter" class="anchor">Skills Center</a></li>
+        <li class="line"><a ui-sref=".socialRecruiting" class="anchor">Social Recruiting</a></li>
+	</ul>
+</div>
+<div class="col-md-3 lines">
+		<ul >
+        <li class="lbrand padd"><a class="">ResourceAdda Every where</a></li>
+       </ul>
+        <div class="posi">
+          <span><a href="https://www.twitter.com"><img src="images/twitter2.png" class="img-reponsive" width="12%"></a></span>
+          <span><a  href="https://www.facebook.com/"><img src="images/facebook2.png" class="img-reponsive" width="12%"></a></span>
+          <span><a  href="https://plus.google.com"><img src="images/google-plus.png"  class="img-reponsive" width="12%"></a></span>
+          <div>
+        	<!-- <span>  <a href="https://www.apple.com/in/ios/app-store/"><img src="images/coming_soon_apple.png" height="45px" class="img-reponsive" width="90px"></a></span>
+        	<span> <a href="https://play.google.com/store?hl=en"><img src="images/google_play2.png" height="40px" class="img-reponsive" width="90px"></a></span> -->
+        	<br><span> <img src="images/comingsoon2.png" height="40px" class="img-reponsive" width="100%"></span>
+          </div>
+        </div>
+</div>
+ </div>
+    </div>
+</div>
+<div class="footer2">
+     <p class="text-center text-warning">Disclaimer: All images are copyright to their respective owners.</p>
+     <p class="text-center text-info">Copyright &copy; 2019 ResourceAdda. All rights reserved. Use of this site is subject to certain Terms and Conditions.</p>
+</div>
+
+</footer>
+

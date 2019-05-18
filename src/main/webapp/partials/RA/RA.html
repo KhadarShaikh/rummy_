@@ -1,0 +1,68 @@
+
+<nav class="navbar navabar-default  navbar-fixed-top">
+	<div class="container-fluid" id="header">
+		<div class="navbar-header">
+			<a class="navbar-brand headername" style="color:#ffac13fc"><i
+				class="fa fa-users headername" aria-hidden="true" style="color:#1d62a7 "></i>&nbsp;&nbsp;Resource
+				Adda</a>
+		</div>
+		<div class="nav navbar-nav pull-right" style="margin-top: 15px;">
+			  
+				<div class="headername " >
+					  <span><span style="margin-right: 10px;"></span>
+					<span class ="bor"><span style="margin-right: 10px;">Welcome&nbsp;{{loginusername}}</span></span>
+					
+					<span ng-controller="LoginCtrl">
+						<a class="" href="#" ng-click="logout();">
+							<span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout
+						</a>
+					</span>
+				</div>	
+				
+			</div>
+	</div>
+		
+</nav>
+	
+
+<!-- sub-header -->
+	<div class="container-fluid" id="sub-header" style="background:#18d4ff;position: fixed;
+    width: 100%;
+    z-index: 10;">
+ 
+					
+			
+		
+		<div >
+			<ul class="nav navbar-nav">
+				<li ui-sref-active="active"><a class="headername" data-toggle="collapse" data-target="#myNavbar"
+					ui-sref=".dashboard">Dashboard</a></li>
+				<li ui-sref-active="active"><a class="headername" data-toggle="collapse" data-target="#myNavbar"
+					ui-sref=".RAlist">Registrations List </a></li>
+				<li ui-sref-active="active"><a class="headername" data-toggle="collapse" data-target="#myNavbar"
+					ui-sref=".plan">Plan Management</a></li>
+				
+				<li ui-sref-active="active"><a class="headername" data-toggle="collapse" data-target="#myNavbar"
+					ui-sref=".alluserlist">All Users</a></li>
+				<li></li>
+				<li class="dropdown "  style="position: absolute;right: 104px;">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+						Master <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu master_dropdown" >
+						<li data-toggle="collapse" data-target="#myNavbar"><a ui-sref=".jobcategory">Job Category</a></li>
+						<li><a ui-sref=".Jobtype">Job Type</a></li>
+						<li><a ui-sref=".JoinWithIn">Notice Period</a></li>
+						<li><a ui-sref=".PrimarySkills">Primary Skills</a></li>
+						<li><a ui-sref=".secondaryskill">Secondary Skill</a></li>
+					</ul>
+				</li>
+			
+
+			</ul>
+		</div>
+		<!-- </div> -->
+	</div>
+</nav>
+<div ui-view autoscroll="false"></div>
+<foot class="topfoot"></foot>

@@ -1,0 +1,58 @@
+.navbar {
+    position: relative;  
+    margin-bottom: 0px !important; 
+    border: 1px solid transparent;
+}
+.navbar-inverse {
+    background-color: rgb(8, 8, 8) !important;
+    border-color: rgb(8, 8, 8) !important;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color:white;
+}
+ .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+        color: #30426a !important;
+    color: #fff;
+    border-radius: 15px;
+} 
+thead tr th {
+    text-align: center;
+}
+.navbar-inverse .navbar-nav>.active>a{
+	 color: #fff;    
+     border-radius: 20px;
+     border:1px solid #fff
+}
+.navbar-inverse .navbar-nav>a:hover{
+	color: #fff !important;   
+	background-color :#000 !important; 
+     border-radius: 20px;
+     border:1px solid #fff
+}
+/* .navabar-default
+{
+background-color: rgb(24, 212, 255) !important;	
+} */
+.n
+{
+color: #fff !important;	
+}
+.active1{
+	color: #fff;
+    background-color:#ffac13fc;
+    border-radius: 0px;
+    border:1px solid #fff
+}
+.navabar-default .navbar-nav>ul>li>a:hover{
+	background-color:#333;
+}
+@media (min-width: 768px){
+	.navbar {
+    border-radius: 0px !important;
+}
+.navbar-right {
+    float: right!important;
+    margin-right: -15px;
+    margin-top: 4px;
+}
+}

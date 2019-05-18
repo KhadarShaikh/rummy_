@@ -1,0 +1,45 @@
+<style>
+.Applicationloader {
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background: rgba(173, 216, 230, 0.2);
+	z-index: 999999;
+	/*position: absolute;*/
+}
+
+.Applicationloader img {
+	margin-left: 50%;
+	margin-top: calc(100vh - 60vh);
+}
+</style>
+<div ng-show="isLoading" class="Applicationloader">
+	<img src="images/OjasRALoader.gif" />
+</div>
+<div class="customerDashboard">
+
+   <div class="container">
+	   <div class="row">
+		   <div class="col-sm-4">
+		   		<h4>Requirements Posted per Annum</h4>
+		   		<div id="myfirstchart" ></div>
+		   </div>
+		   <div class="col-sm-4">
+		   		<h4>Top Technologies so far</h4> 
+		   		<div id="donut-example" ></div>
+		   </div>
+		   <div class="col-sm-4">
+		   		<h4>Requirements(A) Vs Resource(B)</h4>
+		        <div id="bar-example" ></div>
+		   </div>
+	   </div>
+	   <!-- <div class="row">
+	  		<div class="col-sm-6">
+	   			<div id="area-example"></div>
+	   		</div>
+	   </div> -->
+  	</div>
+</div>
+ 
