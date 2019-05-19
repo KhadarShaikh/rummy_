@@ -2,6 +2,7 @@ package com.rummy.mapper;
 
 import java.io.Serializable;
 
+import org.bson.types.ObjectId;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -15,6 +16,12 @@ public class PaymentMapper implements Serializable {
 	@JsonProperty("_id")
 	private String _id;
 
+	@JsonProperty("amtToAdd")
+	private ObjectId amtToAdd;
+
+	@JsonProperty("saveCardDetails")
+	private String saveCardDetails;
+
 	@JsonProperty("registrationId")
 	private String registrationId;
 
@@ -26,10 +33,25 @@ public class PaymentMapper implements Serializable {
 
 	@JsonProperty("validYear")
 	private String validYear;
-	
-	@JsonProperty("validMonth")	
-   private String validMonth;
 
+	@JsonProperty("validMonth")
+	private String validMonth;
+
+	public ObjectId getAmtToAdd() {
+		return amtToAdd;
+	}
+
+	public void setAmtToAdd(ObjectId amtToAdd) {
+		this.amtToAdd = amtToAdd;
+	}
+
+	public String getSaveCardDetails() {
+		return saveCardDetails;
+	}
+
+	public void setSaveCardDetails(String saveCardDetails) {
+		this.saveCardDetails = saveCardDetails;
+	}
 
 	public String getValidYear() {
 		return validYear;
@@ -93,7 +115,6 @@ public class PaymentMapper implements Serializable {
 		this.cardNumber = cardNumber;
 	}
 
-	
 	public String getAccountHolderName() {
 		return accountHolderName;
 	}

@@ -19,6 +19,9 @@ public class Payment implements Serializable {
 	@JsonProperty("registrationId")
 	private ObjectId registrationId;
 
+	@JsonProperty("amtToAdd")
+	private ObjectId amtToAdd;
+
 	@JsonProperty("cvv")
 	private String cvv;
 
@@ -36,6 +39,25 @@ public class Payment implements Serializable {
 
 	@JsonProperty("cardType")
 	private String cardType;
+
+	@JsonProperty("saveCardDetails")
+	private String saveCardDetails;
+
+	public ObjectId getAmtToAdd() {
+		return amtToAdd;
+	}
+
+	public void setAmtToAdd(ObjectId amtToAdd) {
+		this.amtToAdd = amtToAdd;
+	}
+
+	public String getSaveCardDetails() {
+		return saveCardDetails;
+	}
+
+	public void setSaveCardDetails(String saveCardDetails) {
+		this.saveCardDetails = saveCardDetails;
+	}
 
 	public String getValidYear() {
 		return validYear;
