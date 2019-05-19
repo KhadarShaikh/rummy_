@@ -102,7 +102,7 @@ public class RegistrationResource {
 				accounts = userService.loadUserByUsername(registration.getMailId());
 			} catch (RAException e) {
 				logger.error("Registration not created " + e.getMessage());
-				return new Response(HttpStatus.CONFLICT, "No records found");
+				return new Response(HttpStatus.CONFLICT, "User already exists");
 			}
 			if (null == accounts) {
 				reg.setStatus("Active");
@@ -136,6 +136,8 @@ public class RegistrationResource {
 						userAccount.setPassword(hashtext);
 						userAccount.setRegistrationId(regs.get_id());
 						userAccount.setStatus("active");
+						userAccount.setPromEmails("yes");
+						userAccount.setPromMsgs("yes");
 						userService.save(userAccount);
 						UserAccount account;
 						try {
@@ -159,9 +161,9 @@ public class RegistrationResource {
 						mapping.setRole_id(role.get_id());
 						mapping.setUser_id(account.get_id());
 						roleMappingService.createRoleMapping(mapping);
-						String subject = "Successfully Registered..";
-						String msg = "your username is: " + registration.getMailId() + "and password is"
-								+ userAccount.getPassword();
+						String subject = userAccount.getUsername()
+								+ "activate your account to get your special Welcome Bonus!";
+						String msg = "";
 						sendMail.sendMail(registration.getMailId(), subject, msg);
 
 					} catch (NoSuchAlgorithmException e) {

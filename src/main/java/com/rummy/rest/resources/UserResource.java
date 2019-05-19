@@ -116,8 +116,10 @@ public class UserResource {
 	/**
 	 * Authenticates a user and creates an access token.
 	 *
-	 * @param username The name of the user.
-	 * @param password The password of the user.
+	 * @param username
+	 *            The name of the user.
+	 * @param password
+	 *            The password of the user.
 	 * @return The generated access token.
 	 */
 	@Path("/authenticate")
@@ -299,10 +301,6 @@ public class UserResource {
 				}
 			} else {
 				userService.save(userAccount);
-			}
-			if (userAccount.getPromEmails().equalsIgnoreCase("yes")
-					|| userAccount.getPromMsgs().equalsIgnoreCase("yes")) {
-				userService.promotionalSubscription(userAccount);
 			}
 			Map<String, Object> condition = new HashMap<String, Object>();
 			condition.put("user_id", id);

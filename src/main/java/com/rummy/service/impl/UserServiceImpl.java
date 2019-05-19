@@ -68,9 +68,12 @@ public class UserServiceImpl implements UserService {
 			DB db = mongoDBClient.getReadMongoDB();
 			logger.debug("Database initialized..");
 			userAccountDAO.setPojo(new UserAccount());
-			userAccountDAO.getCollection("userAccount", db);
+			userAccountDAO.getCollection("userAccount", db).createIndex(new BasicDBObject("username", 1));
+			userAccountDAO.getCollection("userAccount", db).createIndex(new BasicDBObject("mailId", 1));
+			userAccountDAO.getCollection("userAccount", db).createIndex(new BasicDBObject("mobile", 1));
 			user.setStatus(UserAccountStatus.STATUS_DISABLED.name());
 			b = userAccountDAO.insert(user);
+			userAccountDAO.getCollection("userAccount", db).dropIndexes();
 			logger.debug("user created..");
 			mongoDBClient.closeMongoClient();
 			logger.debug("connection closed..");
@@ -88,8 +91,11 @@ public class UserServiceImpl implements UserService {
 			DB db = mongoDBClient.getReadMongoDB();
 			logger.debug("Database initialized..");
 			userAccountDAO.setPojo(new UserAccount());
-			userAccountDAO.getCollection("userAccount", db);
+			userAccountDAO.getCollection("userAccount", db).createIndex(new BasicDBObject("username", 1));
+			userAccountDAO.getCollection("userAccount", db).createIndex(new BasicDBObject("mailId", 1));
+			userAccountDAO.getCollection("userAccount", db).createIndex(new BasicDBObject("mobile", 1));
 			userAccountDAO.save(user);
+			userAccountDAO.getCollection("userAccount", db).dropIndexes();
 			mongoDBClient.closeMongoClient();
 			logger.debug("connection closed..");
 		} catch (RAException e) {
@@ -98,28 +104,6 @@ public class UserServiceImpl implements UserService {
 			logger.error(e.getMessage());
 			throw new RAException(e.getMessage());
 		}
-	}
-
-	@Override
-	public boolean promotionalSubscription(UserAccount userAccount) throws RAException {
-		boolean b = false;
-		UserAccount user;
-		try {
-			Map<String, Object> condition = new HashMap<String, Object>();
-			condition.put("user_id", userAccount.get_id());
-			user = userService.findOneByCondition(condition);
-			String subject = "Successfully Registered..";
-			String msg = "your username is: " + user.getMailId() + "and password is" + userAccount.getPassword();
-			b = sendMail.sendMail(user.getMailId(), subject, msg);
-			//Msg Logic
-			
-		} catch (RAException e) { 
-			mongoDBClient.closeMongoClient();
-			logger.error("connection closed..");
-			logger.error(e.getMessage());
-			throw new RAException(e.getMessage());
-		}
-		return b;
 	}
 
 	@Override
