@@ -23,6 +23,12 @@ public class UserTransfer implements Serializable {
 	@JsonProperty("username")
 	private String username;
 
+	@JsonProperty("newPwd")
+	private String newPwd;
+
+	@JsonProperty("confirmPwd")
+	private String confirmPwd;
+
 	@JsonProperty("password")
 	private String password;
 
@@ -71,6 +77,22 @@ public class UserTransfer implements Serializable {
 
 	@JsonProperty("mailId")
 	private String mailId;
+
+	public String getNewPwd() {
+		return newPwd;
+	}
+
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
+	}
+
+	public String getConfirmPwd() {
+		return confirmPwd;
+	}
+
+	public void setConfirmPwd(String confirmPwd) {
+		this.confirmPwd = confirmPwd;
+	}
 
 	public String getMailId() {
 		return mailId;

@@ -116,10 +116,8 @@ public class UserResource {
 	/**
 	 * Authenticates a user and creates an access token.
 	 *
-	 * @param username
-	 *            The name of the user.
-	 * @param password
-	 *            The password of the user.
+	 * @param username The name of the user.
+	 * @param password The password of the user.
 	 * @return The generated access token.
 	 */
 	@Path("/authenticate")
@@ -219,7 +217,6 @@ public class UserResource {
 					MessageDigest md;
 					try {
 						md = MessageDigest.getInstance("MD5");
-
 						byte[] messageDigest = md.digest(userTransfer.getUsername().getBytes());
 						BigInteger number = new BigInteger(1, messageDigest);
 						String hashtext = number.toString(16);
@@ -276,12 +273,33 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateUser(@RequestBody UserTransfer userTransfer, @PathParam("id") ObjectId id) {
+		UserAccount acc = null;
 		try {
 			UserAccount userAccount = new UserAccount();
 			BeanUtils.copyProperties(userTransfer, userAccount);
 			userAccount.set_id(id);
 			userAccount.setRegistrationId(new ObjectId(userTransfer.getRegistrationId()));
-			userService.save(userAccount);
+			if (null != userTransfer.getNewPwd() && null != userTransfer.getConfirmPwd()
+					&& userTransfer.getNewPwd().equals(userTransfer.getConfirmPwd())) {
+				MessageDigest md = null;
+				String hashtext = null;
+				try {
+					md = MessageDigest.getInstance("MD5");
+					byte[] messageDigest = md.digest(userTransfer.getPassword().getBytes());
+					BigInteger number = new BigInteger(1, messageDigest);
+					hashtext = number.toString(16);
+				} catch (NoSuchAlgorithmException e) {
+					return new Response(HttpStatus.CONFLICT, "no digest algorithem suchtype are found");
+				}
+				acc = userService.loadUserByUsername(userTransfer.getUsername());
+				if (acc != null) {
+					if (hashtext.equals(acc.getPassword())) {
+						userService.save(userAccount);
+					}
+				}
+			} else {
+				userService.save(userAccount);
+			}
 			if (userAccount.getPromEmails().equalsIgnoreCase("yes")
 					|| userAccount.getPromMsgs().equalsIgnoreCase("yes")) {
 				userService.promotionalSubscription(userAccount);

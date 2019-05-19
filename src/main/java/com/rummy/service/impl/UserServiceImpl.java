@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 			String msg = "your username is: " + user.getMailId() + "and password is" + userAccount.getPassword();
 			b = sendMail.sendMail(user.getMailId(), subject, msg);
 			//Msg Logic
-		
+			
 		} catch (RAException e) { 
 			mongoDBClient.closeMongoClient();
 			logger.error("connection closed..");
