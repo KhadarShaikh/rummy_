@@ -1,0 +1,245 @@
+<!-- 
+<div class="container-fluid m-t-50" autoscroll="true">
+	<div class="row sea">
+	 
+		<h4 style="color: #337ab7">Search Your Resource :</h4>
+		<div class="col-sm-3">
+		<input type="text" ifEmpty class="form-control" ng-model="search.primarySkills"
+				placeholder="Skills Ex:java,angular">
+			
+		</div>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" ng-model="search.jobCategory"
+				placeholder="job Category">
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="search.city"
+				placeholder="Location">
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control"
+				ng-model="search.totalExperience" placeholder="Experience">
+		</div>
+		<div class="col-sm-2">
+			<button type="button" class="btn btn-primary" ng-click="dynamicsearch(search.primarySkills,search.jobCategory,search.city,search.totalExperience)" style="margin-top:3px;">
+				<i class="fa fa-search"></i>&nbsp;Search
+			</button>
+		</div>
+      </div>
+	</div>
+
+	<br>
+
+						
+			<div class="container-fluid m-t-20"  style="margin-top: 187px" >
+		<div class="row" >
+
+					<div class="col-sm-2" style="
+    position: fixed;
+    z-index: 9;
+    left: 30px;">
+				<uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default"
+					is-open="status.Skills">
+					<uib-accordion-heading> Skills <i
+						class="pull-right glyphicon"
+						 ng-class="{'glyphicon glyphicon-minus': status.Skills, 'glyphicon glyphicon-plus': !status.open}"></i>
+					</uib-accordion-heading>
+					<ul class="list-group" ng-repeat="(skill,count) in skillslist.skillsMap">
+					   <input type="checkbox" checklist-model="skil.skills" checklist-value="skill" ng-click="checkbox()"> {{skill}}({{count}})
+					</ul>
+				</div>
+					<div uib-accordion-group class="panel-default" is-open="status.Job ">
+					<uib-accordion-heading> Job Category <i
+						class="pull-right glyphicon"
+						ng-class="{'glyphicon glyphicon-minus': status.Job , 'glyphicon glyphicon-plus': !status.open}" ></i>
+					</uib-accordion-heading>
+					<ul class=" list-group" ng-repeat="(jobcategory,count) in skillslist.jobCategoryMap">
+					 <input type="checkbox" checklist-model="job.jobCategory1" checklist-value="jobcategory" ng-click="checkbox()" > {{jobcategory}}({{count}}) &nbsp;
+					</ul>
+				</div>
+				<div uib-accordion-group class="panel-default"
+					is-open="status.Location">
+					<uib-accordion-heading> Location<i
+						class="pull-right glyphicon"
+						ng-class="{'glyphicon glyphicon-minus': status.Location, 'glyphicon glyphicon-plus': !status.open}" ></i>
+					</uib-accordion-heading>
+
+					<ul class=" list-group" ng-repeat="(location1,count) in skillslist.locationMap">
+					    <input type="checkbox" checklist-model="location2.city" checklist-value="location1" ng-click="checkbox()"> {{location1}}({{count}}) &nbsp;
+					</ul>
+				</div>			
+				<div uib-accordion-group class="panel-default"
+					is-open="status.Experience">
+					<uib-accordion-heading> Experience <i
+						class="pull-right glyphicon"
+						ng-class="{'glyphicon glyphicon-minus': status.Experience, 'glyphicon glyphicon-plus': !status.open}" ></i>
+					</uib-accordion-heading>
+					<ul class=" list-group" ng-repeat="(exp1,count) in skillslist.yearsOfExperienceMap">
+					<input type="checkbox" checklist-model="exp2.totalExperience" checklist-value="exp1" ng-click="checkbox()"> {{exp1}}({{count}})&nbsp;
+				
+					</ul>
+				</div>
+				<div uib-accordion-group class="panel-default"
+					is-open="status.company1">
+					<uib-accordion-heading> Budget <i
+						class="pull-right glyphicon"
+						ng-class="{'glyphicon glyphicon-minus': status.company1, 'glyphicon glyphicon-plus': !status.open}" ></i>
+					</uib-accordion-heading>
+					<ul class=" list-group" ng-repeat="(budget,count) in skillslist.budgetMap">
+						<input type="checkbox" checklist-model="budget1.budget" checklist-value="budget" ng-click="checkbox()"> {{budget}}({{count}}) &nbsp;
+						
+					</ul>
+				</div>
+				<br>
+	
+			</div>
+		</div>	
+		
+		-->
+		
+		 <div class="container-fluid m-t-50" autoscroll="true">
+
+					<div class="col-sm-8" style="margin-right:400px; margin-top: 65px">
+					
+					<button type="button" class="btn btn-danger" style="margin-left: 220px;" ui-sref="customer.postrequirement">
+				     <i class="	glyphicon glyphicon-share"></i>&nbsp;Go Back
+			         </button>
+				
+				
+			       <div ng-show="errorMessage=='records not found'" style="margin-left: 650px;">
+			       
+                  <strong>No Matching Profiles Found</strong> 
+					</div>
+					
+					
+						<div ng-repeat="x in list" class="box" style="position: relative;left: 220px;top: 5px;">
+						<a href="" data-toggle="modal" data-target="#myModal{{$index}}" ng-click="getDetails(x)">
+							
+						<!-- 	<a ui-sref="customer.resourcesummary({resourceId:x._id})"> -->
+							
+							<div class="header-box">
+								<p>
+								<span title="Job Category">{{x.jobCategory}}</span><span title="Location">-{{x.currentLocation}}</span><span title="Experience">({{x.yearsOfExperience}}-{{x.monthsOfExperience}})</span>
+								</p>
+							</div></a>
+							<a ui-sref="customer.resourcesummary({resourceId:x._id})"><div class="row">
+							<div class="companyName-box col-sm-7">
+								<p><span title="Company Name">{{x.companyName}}</span> <span title="Resource Id">{{x.resId}}</span></p>
+							</div>
+							<div class="col-sm-5">
+							<span style="" class="iconcolor" >&#x20B9;</span>&nbsp;:<span style="" class="textcolor" title="Budget">{{x.budget}} /</span><span style="" class="textfont">{{x.rate}}</span> +<span style="" class="taxes"> {{x.gst}} </span></span>
+							</div>
+							</div></a>
+							<a ui-sref="customer.resourcesummary({resourceId:x._id})"><div class="description-box">
+								<p title="Resource Name"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;{{x.firstName}}</p>
+							</div></a>
+							<a ui-sref="customer.resourcesummary({resourceId:x._id})"><div class="row">
+							<div class="description-box col-sm-7">
+								<p>
+									<i class="glyphicon glyphicon-envelope" > </i>&nbsp;&nbsp;<span title="Vendor EmailId">{{x.emailId}}&nbsp;</span>
+								</p>
+							</div>
+							<div class="col-sm-5">
+							<i
+										class="fa fa-phone iconcolor " ></i>&nbsp;:<span class="textcolor" title="Vendor Contact Number">{{x.mobileNumber}}</span>
+							</div>
+							</div></a>
+							<a ui-sref="customer.resourcesummary({resourceId:x._id})"><div class="description-box">
+								<p>
+									<i class="glyphicon glyphicon-calendar"></i>&nbsp;&nbsp;{{x.availability}}
+									 &nbsp;&nbsp;MSA Available&nbsp; : <a class="btn btn-sm btn-primary butn" ng-click="isSowUserResource(x)"  disabled>{{x.isSowUser}}</a>
+								</p>
+							</div></a>
+							<div class="Skills-box">
+								<p>
+									Skills:{{x.primarySkills.toLowerCase()}}
+									<button class="btn btn-primary pull-right" ng-click = requestResource(x.registrationId,x._id) > Request Resource</button>
+								</p>
+								
+							</div>
+						
+					
+		
+		  <!-- Trigger the modal with a button -->
+  <!-- Modal -->
+  <div class="modal fade" id="#myModal{{$index}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" data-dismiss="modal">&times;</button>
+          <h3 class="fon" style="color: #183c5f;font-family: inherit;">
+				<i class="fa fa-briefcase"></i>&nbsp;{{jobCategory}}({{yearsOfExperience}}&nbsp;- {{monthsOfExperience}}&nbsp;)
+			</h3>
+			<h4 class="fon" style="color: #183c5f;font-family: inherit;">
+				<i class="fa fa-building"></i>&nbsp;{{companyName}} {{jobLocation}} {{jobId}}
+			</h4>
+			<h5 class="fon" style="color: #183c5f;font-family: inherit;">
+				<i class="fa fa-rupee"></i>&nbsp;{{budget}}/{{rateType}} + {{gst}} </span>
+			</h5>
+			<h4>
+			<i class="fa fa-phone"></i>&nbsp;<span style="color: #183c5f;font-family: inherit;">{{phoneNumber}}</span>
+			</h4>
+			
+			
+			
+			<h3 class="fon color">
+				<i class="fa fa-user-circle-o color"></i>&nbsp;{{resource.firstName}}&nbsp;{{resource.lastName}},&nbsp;{{resource.jobCategory}} &nbsp;({{resource.yearsOfExperience}}-{{resource.monthsOfExperience}} )
+			</h3>
+			<h4 class="fon color">
+				<i class="fa fa-building color"></i>&nbsp;{{resource.companyName}} {{resource.currentLocation}} {{resource.resId}}
+			</h4>
+			<h5 class="fon color">
+				<i class="fa fa-rupee color"></i>&nbsp;{{resource.budget}}/{{resource.rate}}+{{resource.gst}}
+			</h5>
+
+			
+			
+			
+        </div>
+        <div class="modal-body">
+         
+			<h4  class="jd">About Me</h4>
+
+				<p class="para"><i class="fa fa-user-circle-o color"></i>&nbsp;&nbsp;Name : {{x.firstName}}&nbsp;{{resource.lastName}}</p>
+				<p class="para"><i class="fa fa-bank color"></i>&nbsp;&nbsp;CompanyName : {{x.companyName}}</p>
+				<p class="para"><i class="fa fa-black-tie color"></i>&nbsp;Job Category : {{x.jobCategory}}</p>
+				<p class="para"><i class="glyphicon glyphicon-briefcase color"></i>&nbsp;&nbsp;Experience :{{x.yearsOfExperience}}-{{x.monthsOfExperience}} </p>
+				<p class="para"><i class="glyphicon glyphicon-map-marker color"></i>&nbsp;&nbsp;Job Location : {{x.currentLocation}}</p>
+				<p class="para"><i class="fa fa-rupee color"></i>&nbsp;&nbsp;Salary : {{resource.budget}}/{{x.rate}} + {{x.gst}}</p>	
+				<p class="para"><i class="glyphicon glyphicon-screenshot color"></i>&nbsp;&nbsp;Preferred Location : {{x.preferredLocation}}</p>	
+				
+			
+			
+		<hr style=" width: 46%;">
+			<h4 class="jd">Technical Skills </h4>
+
+			<p class="para"><i class="fa fa-tags color"></i>&nbsp;&nbsp;Skills:&nbsp;{{x.primarySkills}},{{x.secondarySkills}}</p>
+	
+			<hr>
+			<h4 class="jd">Contact Details</h4>
+			<p class="para"><i class="glyphicon glyphicon-envelope color"></i>&nbsp;&nbsp;Email Id&nbsp;:{{x.emailId}}</p>
+			<p class="para"><i class="fa fa-mobile color"></i>&nbsp;&nbsp;Mobile Number&nbsp;: +91-{{x.mobileNumber}}</p>
+			<p class="para"><i class="glyphicon glyphicon-map-marker color"></i>&nbsp;&nbsp;Address&nbsp;:{{x.currentLocation}},{{x.state}},{{x.country}}</p>
+			<hr style=" width: 46%;"> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  </div>	
+  	</div>
+		</div>
+		<div class="pull-right" ng-show="divshowing_cus1">  
+        <span ng-show="divLoadPagination"> <ul uib-pagination total-items="totalCount" max-size="maxSize" items-per-page="pageSizeSelected" boundary-links="true" rotate="false" num-pages="numPages" direction-links="true" ng-model="pageIndex" ng-change="pageChanged()"></ul></span> 
+        <span ng-show="divSearchPagination">     <ul uib-pagination total-items="totalCount" max-size="maxSize" items-per-page="pageSizeSelected" boundary-links="true" rotate="false" num-pages="numPages" direction-links="true" ng-model="pageIndex" ng-change="pageChangedSearchPagination()"></ul></span> 
+        <span ng-show="divFilterPagination">     <ul uib-pagination total-items="totalCount" max-size="maxSize" items-per-page="pageSizeSelected" boundary-links="true" rotate="false" num-pages="numPages" direction-links="true" ng-model="pageIndex" ng-change="pageChangedFilterPagination()"></ul></span> 
+                </div>
+</div>
+
+	

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	<!-- SPRING SETUP -->
+
+	<!-- Load properties so we can easily change them -->
+	<!-- <context:property-placeholder location="classpath:application.properties" 
+		/> -->
+
+	<!-- Enable Annotation Configuration in order to automatically scan controllers -->
+	<context:annotation-config />
+
+	<!-- Search for Rest Resources and configure them automatically -->
+	<context:component-scan base-package="com.rummy.*" />
+
+	<!-- Enable Annotation Configuration in order to automatically for task 
+		scheduling -->
+	<task:annotation-driven />
+
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="cdata.jdbc.mongodb.MongoDBDriver" 
+		/> <property name="url" value="jdbc:mongodb:Server=127.0.0.1;Port=27017;Database=test" 
+		/> </bean> -->
+
+
+	<bean id="mongoConfig" class="com.rummy.MongoConfig">
+		<property name="port" value="27017" />
+		<property name="host" value="localhost" />
+		<property name="database" value="rummy_db" />
+	</bean>
+
+	<bean id="mongoServiceFactory" class="com.rummy.MongoServiceFactory"></bean>
+
+	<bean id="dataBaseInitializer" class="com.rummy.service.impl.DataInitializer"
+		init-method="initDataBase">
+	</bean>
+
+	<bean id="mongoDAO" class="com.rummy.dao.MongoDAO"></bean>
+
+	<bean id="accessTokenDAO" class="com.rummy.dao.AccessTokenDAO"></bean>
+
+	<bean id="userAccountDAO" class="com.rummy.dao.UserAccountDAO"></bean>
+
+	<bean id="roleMappingDAO" class="com.rummy.dao.RoleMappingDAO"></bean>
+
+	<bean id="registrationDAO" class="com.rummy.dao.RegistrationDAO"></bean>
+
+	<bean id="roleDAO" class="com.rummy.dao.RoleDAO"></bean>
+
+	<bean id="paymentDAO" class="com.rummy.dao.PaymentDAO"></bean>
+
+
+	<!-- INIT REST COMPONENTS -->
+
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+
+	<!-- SPRING SECURITY SETUP -->
+
+
+	<bean id="userService" class="com.rummy.service.impl.UserServiceImpl" />
+
+	<bean id="tokenService" class="com.rummy.service.impl.TokenServiceImpl" />
+
+	<bean id="dbService" class="com.rummy.service.impl.DbServiceImpl" />
+
+	<bean id="registrationService" class="com.rummy.service.impl.RegistrationServiceImpl" />
+
+	<bean id="roleService" class="com.rummy.service.impl.RoleServiceImpl" />
+
+	<bean id="roleMappingService" class="com.rummy.service.impl.RoleMappingServiceImpl" />
+
+	<bean id="paymentService" class="com.rummy.service.impl.PaymentServiceImpl" />
+
+	<bean id="authenticationTokenProcessingFilter" class="com.rummy.rest.AuthenticationTokenProcessingFilter">
+		<constructor-arg ref="userService" />
+	</bean>
+
+
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="username" value="vkayyappa.ayyappa@gmail.com" />
+		<property name="password" value="venki@123" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.socketFactory.port">465</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.port">465</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sendMail" class="com.rummy.util.SendMail">
+		<property name="javaMailSender" ref="javaMailSender" />
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- Maximum Upload Size (In Bytes) - 20 MB -->
+		<property name="maxUploadSize" value="20971520" />
+		<!-- Maximum Size Of The File In Memory (In Bytes) - 10 MB -->
+		<property name="maxInMemorySize" value="1048576" />
+
+	</bean>
+
+</beans>
+

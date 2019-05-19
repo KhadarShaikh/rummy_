@@ -1,0 +1,37 @@
+ <div  class="container m-t-75"> 
+                
+                  <div class="input-group  m-t-75">
+                    <input type="text" ng-model="search" class="form-control" size="50" placeholder="Search Here...." required>
+                   <button type="button" class="btn btn-primary pull-right" style="margin-right: -620px;"  ui-sref="RA.JobtypeAdd"> Add </button>                 
+                    </div>
+                <div class="table-responsive m-t-30">
+                	<table  class="table text-center">
+						    <thead>
+						        <th>S.No</th>
+						        <th>Job Type</th>        
+						        
+								<th>Edit</th>
+							  <th>Delete</th> 
+							 
+						    </thead>
+						    <tbody>
+						        <tr ng-repeat="user in newjobtype | filter:search">
+						            <td>{{pageSizeSelected*(pageIndex-1)+$index+1}}</td>
+						            <td>{{ user.jobType}}</td>	
+						           	<td><a type="button" class="btn btn-primary" ui-sref="RA.JobtypeEdit({alluser:user._id})"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                                    <td><a type="button" class="btn btn-primary" ng-click="deleteJobtype(user._id)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+						        </tr>
+						    </tbody>
+					</table>
+					
+					
+                </div> 
+                 <div class="row">
+                                  <div class="pull-right"> 
+                                  	<ul uib-pagination total-items="totalCount" style="margin-right: 15px;" max-size="maxSize" items-per-page="pageSizeSelected" boundary-links="true" rotate="false" num-pages="numPages" direction-links="true" ng-model="pageIndex" ng-change="pageChanged()"></ul>
+                                  </div> 
+                                  
+                                   
+                                  
+                                  </div>
+                </div>

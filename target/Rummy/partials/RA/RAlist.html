@@ -1,0 +1,71 @@
+<div class="container m-t-75">
+	<div class="table-responsive ">
+	   <div class="input-group">
+			<input type="text" ng-model="reglist" class="form-control" size="50"
+				placeholder="Search Here" required>
+		</div>
+		<table class="table text-center" style="margin-top: 14px;">
+			<thead>
+				<tr>
+					<th>S.No</th>
+					<th>  <a href="" ng-click="orderByField='companyName'; reverseSort = !reverseSort">
+					Company Name
+					<span ng-show="orderByField == 'companyName'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+					</th>
+					<th> <a href="" ng-click="orderByField='registrationType'; reverseSort = !reverseSort">
+					Registration Type
+					<span ng-show="orderByField == 'registrationType'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+					</th>
+					<th><a href="" ng-click="orderByField='registeredDate'; reverseSort = !reverseSort">
+					Registration Date
+						<span ng-show="orderByField == 'registeredDate'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+					</th>
+					<th>
+					<a href="" ng-click="orderByField='mailId'; reverseSort = !reverseSort">
+					Email
+					<span ng-show="orderByField == 'mailId'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+					</th>
+					<th>
+					<a href="" ng-click="orderByField='mobile'; reverseSort = !reverseSort">
+					Mobile No
+					<span ng-show="orderByField == 'mobile'"><span ng-show="!reverseSort">^</span><span ng-show="reverseSort">v</span></span>
+					</th>
+
+					<!-- <th>City</th> -->
+
+					<th>Status</th>
+					<!-- <th>Add Contact</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in details|orderBy:orderByField:reverseSort| filter:reglist">
+					<td>{{pageSizeSelected*(pageIndex-1)+$index+1}}</td> 
+					<td>{{x.companyName}}</td>
+					<td>{{x.registrationType}}</td>
+					<td>{{x.registeredDate | date:'dd-MM-yyyy'}}</td>
+					<td>{{x.mailId}}</td>
+					<td>{{x.mobile}}</td>
+					<!-- <td>{{x.city}}</td> -->
+					<!--     <td>{{x.city}}</td> -->
+					<td><a type="button" class="btn btn-primary butn"
+						ng-click="statusId(x)">{{x.status}}</a></td>
+
+					<!--  <td><a class="btn btn-primary"  title="Add Contact" ui-sref="RA.registerContact"><i class="fa fa-address-book"></i></a></td>
+					       -->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row m-b-20">
+		<div class="pull-right">
+
+			<ul uib-pagination total-items="totalCount" max-size="maxSize" style="margin-right: 12px;"
+				items-per-page="pageSizeSelected" boundary-links="true"
+				rotate="false" num-pages="numPages" direction-links="true"
+				ng-model="pageIndex" ng-change="pageChanged()"></ul>
+		</div>
+		<!-- <div class="col-md-6">
+  					<button type="button" class="btn btn-primary butn pull-right" ui-sref="RA.addRA"> Add </button>
+  				</div> -->
+	</div>
+</div>
