@@ -107,7 +107,6 @@ public class UserResource {
 			if (null != userDetails.getRegistrationId()) {
 				userTransfer.setRegistrationId(userDetails.getRegistrationId().toString());
 			}
-			userTransfer.setRegistrationType(userDetails.getRegistrationType());
 			return new Response(userTransfer, HttpStatus.OK, "records found");
 		} catch (RAException e) {
 			throw new RAException(e.getMessage());
@@ -180,7 +179,7 @@ public class UserResource {
 	 * @return
 	 */
 	@POST
-	@Path("/saveUser")
+	@Path("/createUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createUser(@RequestBody UserTransfer userTransfer) {
@@ -203,7 +202,6 @@ public class UserResource {
 				} catch (RAException e) {
 					return new Response(HttpStatus.CONFLICT, "No records found");
 				}
-				int size = userlist.size();
 				Map<String, Object> condition = new HashMap<String, Object>();
 				condition.put("_id", new ObjectId(userTransfer.getRegistrationId()));
 				Registration reg;
@@ -212,18 +210,11 @@ public class UserResource {
 				} catch (RAException e) {
 					return new Response(HttpStatus.CONFLICT, "No records found");
 				}
-				/*
-				 * int noOfLic = Integer.parseInt(reg.getNumberOfLicences()); if
-				 * (size <= noOfLic) {
-				 */
 				try {
 					UserAccount user = new UserAccount();
 					BeanUtils.copyProperties(userTransfer, user);
 					user.setRegistrationId(new ObjectId(userTransfer.getRegistrationId()));
 					user.setStatus("Active");
-					// registrationtype assign
-
-					// user.setRegistrationType(reg.getRegistrationType());
 					// encrypting password
 					MessageDigest md;
 					try {
@@ -290,7 +281,11 @@ public class UserResource {
 			BeanUtils.copyProperties(userTransfer, userAccount);
 			userAccount.set_id(id);
 			userAccount.setRegistrationId(new ObjectId(userTransfer.getRegistrationId()));
-			userService.save(userAccount);	
+			userService.save(userAccount);
+			if (userAccount.getPromEmails().equalsIgnoreCase("yes")
+					|| userAccount.getPromMsgs().equalsIgnoreCase("yes")) {
+				userService.promotionalSubscription(userAccount);
+			}
 			Map<String, Object> condition = new HashMap<String, Object>();
 			condition.put("user_id", id);
 			roleMappingService.removeByCondition(condition);
@@ -307,6 +302,11 @@ public class UserResource {
 		}
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@PUT
 	@Path("/inactiveOrActive/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -1,7 +1,6 @@
 package com.rummy.service.impl;
 
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +9,6 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -24,17 +19,14 @@ import com.rummy.dao.RoleDAO;
 import com.rummy.dao.RoleMappingDAO;
 import com.rummy.dao.UserAccountDAO;
 import com.rummy.domain.AccessToken;
-import com.rummy.domain.Resource;
 import com.rummy.domain.Role;
 import com.rummy.domain.UserAccount;
 import com.rummy.exception.RAException;
-import com.rummy.response.Response;
 import com.rummy.services.UserService;
-import com.rummy.util.AuthenticationManagerImpl;
-import com.rummy.util.CustomUserDetails;
 import com.rummy.util.MongoAdvancedQuery;
 import com.rummy.util.MongoOrderByEnum;
 import com.rummy.util.MongoSortVO;
+import com.rummy.util.SendMail;
 
 /**
  * 
@@ -56,7 +48,13 @@ public class UserServiceImpl implements UserService {
 	RoleDAO roleDAO;
 
 	@Autowired
+	SendMail sendMail;
+
+	@Autowired
 	private MongoDBClient mongoDBClient;
+
+	@Autowired
+	private UserService userService;
 
 	Logger logger = Logger.getLogger(UserServiceImpl.class);
 
@@ -87,7 +85,6 @@ public class UserServiceImpl implements UserService {
 
 	public void save(UserAccount user) throws RAException {
 		try {
-
 			DB db = mongoDBClient.getReadMongoDB();
 			logger.debug("Database initialized..");
 			userAccountDAO.setPojo(new UserAccount());
@@ -101,6 +98,28 @@ public class UserServiceImpl implements UserService {
 			logger.error(e.getMessage());
 			throw new RAException(e.getMessage());
 		}
+	}
+
+	@Override
+	public boolean promotionalSubscription(UserAccount userAccount) throws RAException {
+		boolean b = false;
+		UserAccount user;
+		try {
+			Map<String, Object> condition = new HashMap<String, Object>();
+			condition.put("user_id", userAccount.get_id());
+			user = userService.findOneByCondition(condition);
+			String subject = "Successfully Registered..";
+			String msg = "your username is: " + user.getMailId() + "and password is" + userAccount.getPassword();
+			b = sendMail.sendMail(user.getMailId(), subject, msg);
+			//Msg Logic
+		
+		} catch (RAException e) {
+			mongoDBClient.closeMongoClient();
+			logger.error("connection closed..");
+			logger.error(e.getMessage());
+			throw new RAException(e.getMessage());
+		}
+		return b;
 	}
 
 	@Override
@@ -466,14 +485,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserAccount> advancedSearchUserString(BasicDBObject orQuery, MongoSortVO sort, int pageNo, int pageSize) {
+	public List<UserAccount> advancedSearchUserString(BasicDBObject orQuery, MongoSortVO sort, int pageNo,
+			int pageSize) {
 		List<UserAccount> userlist;
 		try {
 			DB db = mongoDBClient.getReadMongoDB();
 			logger.debug("Database initialized..");
 			userAccountDAO.setPojo(new UserAccount());
 			userAccountDAO.getCollection("userAccount", db);
-			
+
 			try {
 				userlist = userAccountDAO.getAllByRegex(sort, orQuery, pageNo, pageSize);
 				logger.debug("Resource list sorted by condition..");
@@ -543,6 +563,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return count;
 	}
+
 	@Override
 	public int getCount(BasicDBObject userMappingcondition) {
 

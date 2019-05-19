@@ -54,11 +54,7 @@
 
 	<bean id="roleDAO" class="com.rummy.dao.RoleDAO"></bean>
 
-	<bean id="resourceDAO" class="com.rummy.dao.ResourceDAO"></bean>
-
 	<bean id="paymentDAO" class="com.rummy.dao.PaymentDAO"></bean>
-
-	<bean id="registrationType" class="com.rummy.dao.RegistrationTypeDAO"></bean>
 
 
 	<!-- INIT REST COMPONENTS -->
@@ -80,11 +76,7 @@
 
 	<bean id="roleMappingService" class="com.rummy.service.impl.RoleMappingServiceImpl" />
 
-	<bean id="resourceService" class="com.rummy.service.impl.ResourceServiceImpl" />
-
 	<bean id="paymentService" class="com.rummy.service.impl.PaymentServiceImpl" />
-
-	<bean id="registrationTypeServiceImpl" class="com.rummy.service.impl.RegistrationTypeServiceImpl" />
 
 	<bean id="authenticationTokenProcessingFilter" class="com.rummy.rest.AuthenticationTokenProcessingFilter">
 		<constructor-arg ref="userService" />

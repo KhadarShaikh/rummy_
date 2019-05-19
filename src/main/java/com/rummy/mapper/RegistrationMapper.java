@@ -49,6 +49,28 @@ public class RegistrationMapper implements Serializable {
 	@JsonProperty("file")
 	private String file;
 
+	@JsonProperty("idProofType")
+	private String idProofType;
+
+	@JsonProperty("idProofNo")
+	private String idProofNo;
+
+	public String getIdProofType() {
+		return idProofType;
+	}
+
+	public void setIdProofType(String idProofType) {
+		this.idProofType = idProofType;
+	}
+
+	public String getIdProofNo() {
+		return idProofNo;
+	}
+
+	public void setIdProofNo(String idProofNo) {
+		this.idProofNo = idProofNo;
+	}
+
 	public String getFile() {
 		return file;
 	}

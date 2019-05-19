@@ -8,7 +8,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.ser.ToStringSerializer;
 
-import com.rummy.mapper.PlansMapper;
 import com.rummy.mapper.RoleMapper;
 
 /**
@@ -36,65 +35,108 @@ public class UserTransfer implements Serializable {
 	@JsonProperty("status")
 	private String status;
 
-	@JsonProperty("enabled")
-	private Boolean enabled;
-
-	@JsonProperty("softLock")
-	private String softLock;
-
-	@JsonProperty("hardLock")
-	private String hardLock;
-
 	private Boolean accountNonExpired;
 	private Boolean accountNonLocked;
 	private Boolean credentialsNonExpired;
 
 	private String registrationId;
 
-	private String registrationType;
-
 	private List<RoleMapper> roleMapper;
-
-	private List<PlansMapper> planMapper;
 
 	private Map<String, String> roles;
 
 	@JsonProperty("mobile")
 	private String mobile;
 
-	public List<PlansMapper> getPlanMapper() {
-		return planMapper;
+	@JsonProperty("dob")
+	private String dob;
+
+	@JsonProperty("city")
+	private String city;
+
+	@JsonProperty("state")
+	private String state;
+
+	@JsonProperty("zipcode")
+	private String zipcode;
+
+	@JsonProperty("address")
+	private String address;
+
+	@JsonProperty("promEmails")
+	private String promEmails;
+
+	@JsonProperty("promMsgs")
+	private String promMsgs;
+
+	@JsonProperty("mailId")
+	private String mailId;
+
+	public String getMailId() {
+		return mailId;
 	}
 
-	public void setPlanMapper(List<PlansMapper> planMapper) {
-		this.planMapper = planMapper;
+	public void setMailId(String mailId) {
+		this.mailId = mailId;
 	}
 
-	public String getSoftLock() {
-		return softLock;
+	public String getPromMsgs() {
+		return promMsgs;
 	}
 
-	public void setSoftLock(String softLock) {
-		this.softLock = softLock;
+	public void setPromMsgs(String promMsgs) {
+		this.promMsgs = promMsgs;
 	}
 
-	public String getHardLock() {
-		return hardLock;
+	public String getPromEmails() {
+		return promEmails;
 	}
 
-	public void setHardLock(String hardLock) {
-		this.hardLock = hardLock;
+	public void setPromEmails(String promEmails) {
+		this.promEmails = promEmails;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public UserTransfer() {
-	}
-
-	public String getRegistrationType() {
-		return registrationType;
-	}
-
-	public void setRegistrationType(String registrationType) {
-		this.registrationType = registrationType;
 	}
 
 	public String getMobile() {
@@ -160,14 +202,6 @@ public class UserTransfer implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Boolean getEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public Boolean getAccountNonExpired() {

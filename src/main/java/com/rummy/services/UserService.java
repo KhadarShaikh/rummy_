@@ -178,4 +178,11 @@ public interface UserService {
 	 */
 	public int getCount(BasicDBObject andQuery);
 
+	/**
+	 * 
+	 * @param userAccount
+	 * @return 
+	 */
+	public boolean promotionalSubscription(UserAccount userAccount);
+
 }

@@ -23,18 +23,6 @@ public class Registration implements Serializable {
 	@JsonProperty("status")
 	private String status;
 
-	@JsonProperty("firstname")
-	private String firstname;
-
-	@JsonProperty("lastname")
-	private String lastname;
-
-	@JsonProperty("dob")
-	private String dob;
-
-	@JsonProperty("address")
-	private String address;
-
 	@JsonProperty("mailId")
 	private String mailId;
 
@@ -49,6 +37,28 @@ public class Registration implements Serializable {
 
 	@JsonProperty("file")
 	private byte[] file;
+
+	@JsonProperty("idProofType")
+	private String idProofType;
+
+	@JsonProperty("idProofNo")
+	private String idProofNo;
+
+	public String getIdProofType() {
+		return idProofType;
+	}
+
+	public void setIdProofType(String idProofType) {
+		this.idProofType = idProofType;
+	}
+
+	public String getIdProofNo() {
+		return idProofNo;
+	}
+
+	public void setIdProofNo(String idProofNo) {
+		this.idProofNo = idProofNo;
+	}
 
 	public byte[] getFile() {
 		return file;
@@ -88,38 +98,6 @@ public class Registration implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getDob() {
-		return dob;
-	}
-
-	public void setDob(String dob) {
-		this.dob = dob;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public String getMailId() {

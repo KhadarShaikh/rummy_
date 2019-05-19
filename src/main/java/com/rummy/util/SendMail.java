@@ -5,6 +5,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import com.rummy.exception.RAException;
+
 /**
  * 
  * @author skkhadar
@@ -29,15 +31,19 @@ public class SendMail {
 	 * @param subject
 	 * @param msg
 	 */
-	public void sendMail(String to, String subject, String msg) {
+	public boolean sendMail(String to, String subject, String msg) {
+		try {
+			// creating message
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setTo(to);
+			message.setSubject(subject);
+			message.setText(msg);
 
-		// creating message
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(to);
-		message.setSubject(subject);
-		message.setText(msg);
-
-		// sending message
-		javaMailSender.send(message);
+			// sending message
+			javaMailSender.send(message);
+			return true;
+		} catch (RAException e) {
+			throw new RAException(e.getMessage());
+		}
 	}
 }

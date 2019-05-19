@@ -113,7 +113,10 @@ public class RegistrationResource {
 				calender.add(calender.DATE, 90);
 				result = registrationService.create(reg);
 				Map<String, Object> condition = new HashMap<String, Object>();
-				condition.put("mailId", registration.getMailId());
+				if (null != registration.getMailId())
+					condition.put("mailId", registration.getMailId());
+				else
+					condition.put("mobile", registration.getMobile());
 				Registration regs;
 				try {
 					regs = registrationService.findOneByCondition(condition);
@@ -123,12 +126,11 @@ public class RegistrationResource {
 				}
 				if (result) {
 					UserAccount userAccount = new UserAccount();
-					userAccount.setUsername(registration.getMailId());
+					userAccount.setUsername(registration.getUsername());
 					MessageDigest md;
 					try {
 						md = MessageDigest.getInstance("MD5");
-
-						byte[] messageDigest = md.digest(registration.getMailId().getBytes());
+						byte[] messageDigest = md.digest(registration.getPassword().getBytes());
 						BigInteger number = new BigInteger(1, messageDigest);
 						String hashtext = number.toString(16);
 						userAccount.setPassword(hashtext);
@@ -145,7 +147,7 @@ public class RegistrationResource {
 						}
 						Map<String, Object> rolecondition = new HashMap<String, Object>();
 
-						rolecondition.put("roleName", "SUPERADMIN");
+						rolecondition.put("roleName", "USER");
 						Role role;
 						try {
 							role = roleService.findOneByCondition(rolecondition);
@@ -242,12 +244,15 @@ public class RegistrationResource {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile(@FormDataParam("uploadFile") InputStream uploadFile, @PathParam("id") ObjectId id)
-			throws IOException {
+	public Response uploadFile(@FormDataParam("uploadFile") InputStream uploadFile,
+			@PathParam("idProofNo") String idProofNo, @PathParam("idProofType") String idProofType,
+			@PathParam("id") ObjectId id) throws IOException {
 		try {
 			Registration registration = new Registration();
 			registration.set_id(id);
 			registration.setFile(IOUtils.toByteArray(uploadFile));
+			registration.setIdProofType(idProofType);
+			registration.setIdProofNo(idProofNo);
 			Boolean result = registrationService.save(registration);
 			if (result == false) {
 				logger.debug("file not uploaded for id " + id);

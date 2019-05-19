@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.mongodb.BasicDBObject;
-import com.rummy.domain.JobType;
 import com.rummy.exception.RAException;
 import com.rummy.util.MongoAdvancedQuery;
 import com.rummy.util.MongoSortVO;

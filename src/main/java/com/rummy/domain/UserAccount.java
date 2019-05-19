@@ -36,21 +36,99 @@ public class UserAccount implements Serializable {
 	@JsonProperty("mobile")
 	private String mobile;
 
+	@JsonProperty("dob")
+	private String dob;
+
+	@JsonProperty("city")
+	private String city;
+
+	@JsonProperty("state")
+	private String state;
+
+	@JsonProperty("zipcode")
+	private String zipcode;
+
+	@JsonProperty("address")
+	private String address;
+
+	@JsonProperty("promEmails")
+	private String promEmails;
+
+	@JsonProperty("promMsgs")
+	private String promMsgs;
+
+	@JsonProperty("mailId")
+	private String mailId;
+
+	public String getMailId() {
+		return mailId;
+	}
+
+	public void setMailId(String mailId) {
+		this.mailId = mailId;
+	}
+
+	public String getPromMsgs() {
+		return promMsgs;
+	}
+
+	public void setPromMsgs(String promMsgs) {
+		this.promMsgs = promMsgs;
+	}
+
+	public String getPromEmails() {
+		return promEmails;
+	}
+
+	public void setPromEmails(String promEmails) {
+		this.promEmails = promEmails;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	private Boolean accountNonExpired;
 	private Boolean accountNonLocked;
 	private Boolean credentialsNonExpired;
 
 	private ObjectId registrationId;
-
-	private String registrationType;
-
-	public String getRegistrationType() {
-		return registrationType;
-	}
-
-	public void setRegistrationType(String registrationType) {
-		this.registrationType = registrationType;
-	}
 
 	public ObjectId getRegistrationId() {
 		return registrationId;
