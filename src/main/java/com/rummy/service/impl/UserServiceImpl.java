@@ -1,6 +1,5 @@
 package com.rummy.service.impl;
 
-import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,9 +51,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private MongoDBClient mongoDBClient;
-
-	@Autowired
-	private UserService userService;
 
 	Logger logger = Logger.getLogger(UserServiceImpl.class);
 
@@ -337,7 +333,6 @@ public class UserServiceImpl implements UserService {
 
 	public UserAccount findOneByCondition(Map<String, Object> condition) throws RAException {
 		UserAccount userAccount = null;
-		MessageDigest md = null;
 		try {
 			DB db = mongoDBClient.getReadMongoDB();
 			logger.debug("Database initialized..");

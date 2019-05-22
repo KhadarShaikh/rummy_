@@ -56,6 +56,8 @@
 
 	<bean id="paymentDAO" class="com.rummy.dao.PaymentDAO"></bean>
 
+	<bean id="accountDAO" class="com.rummy.dao.AccountDAO"></bean>
+
 
 	<!-- INIT REST COMPONENTS -->
 
@@ -77,6 +79,8 @@
 	<bean id="roleMappingService" class="com.rummy.service.impl.RoleMappingServiceImpl" />
 
 	<bean id="paymentService" class="com.rummy.service.impl.PaymentServiceImpl" />
+
+	<bean id="accountService" class="com.rummy.service.impl.AccountServiceImpl" />
 
 	<bean id="authenticationTokenProcessingFilter" class="com.rummy.rest.AuthenticationTokenProcessingFilter">
 		<constructor-arg ref="userService" />
