@@ -46,10 +46,12 @@ import com.rummy.services.RoleMappingService;
 import com.rummy.services.RoleService;
 import com.rummy.services.UserService;
 import com.rummy.transfer.UserTransfer;
+import com.rummy.util.GenerateSMS;
 import com.rummy.util.MongoAdvancedQuery;
 import com.rummy.util.MongoEqualQuery;
 import com.rummy.util.MongoOrderByEnum;
 import com.rummy.util.MongoSortVO;
+import com.rummy.util.VerifySMS;
 
 /**
  * 
@@ -316,6 +318,37 @@ public class UserResource {
 		} catch (RAException e) {
 			throw new RAException(e.getMessage());
 		}
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@PUT
+	@Path("/verifyMobile/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response verifyMobile(@RequestBody UserTransfer userTransfer, @PathParam("id") ObjectId id) {
+		String response = null;
+		try {
+			UserAccount userAccount = new UserAccount();
+			BeanUtils.copyProperties(userTransfer, userAccount);
+			userAccount.set_id(id);
+			if (userTransfer.getOperationType() == "generate") {
+				response = GenerateSMS.generateOTP(userAccount);
+			} else if (userTransfer.getOperationType() == "verify") {
+				response = VerifySMS.verifyOTP(userAccount);
+				if (response.contains("900")) {
+					userService.save(userAccount);
+				}
+			} else {
+				return new Response("Please enter a valid otp", HttpStatus.OK);
+			}
+		} catch (RAException e) {
+			throw new RAException(e.getMessage());
+		}
+		return new Response("Success", HttpStatus.OK, response);
 	}
 
 	/**

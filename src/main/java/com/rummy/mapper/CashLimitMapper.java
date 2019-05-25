@@ -1,6 +1,7 @@
 package com.rummy.mapper;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -17,6 +18,9 @@ public class CashLimitMapper implements Serializable {
 
 	@JsonProperty("registrationId")
 	private String registrationId;
+
+	@JsonProperty("date")
+	private Date date;
 
 	@JsonProperty("dailyLimit")
 	private String dailyLimit;
@@ -35,6 +39,25 @@ public class CashLimitMapper implements Serializable {
 
 	@JsonProperty("cashAddedMonth")
 	private String cashAddedMonth;
+
+	@JsonProperty("status")
+	private String status;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String get_id() {
 		return _id;

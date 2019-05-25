@@ -11,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -42,6 +43,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.rummy.domain.CashLimit;
 import com.rummy.domain.Registration;
 import com.rummy.domain.Role;
 import com.rummy.domain.RoleMapping;
@@ -49,6 +51,7 @@ import com.rummy.domain.UserAccount;
 import com.rummy.exception.RAException;
 import com.rummy.mapper.RegistrationMapper;
 import com.rummy.response.Response;
+import com.rummy.services.CashLimitService;
 import com.rummy.services.RegistrationService;
 import com.rummy.services.RoleMappingService;
 import com.rummy.services.RoleService;
@@ -73,6 +76,9 @@ public class RegistrationResource {
 
 	@Autowired
 	RoleService roleService;
+
+	@Autowired
+	CashLimitService cashLimitService;
 	@Autowired
 	RoleMappingService roleMappingService;
 	@Autowired
@@ -161,6 +167,13 @@ public class RegistrationResource {
 						mapping.setRole_id(role.get_id());
 						mapping.setUser_id(account.get_id());
 						roleMappingService.createRoleMapping(mapping);
+
+						CashLimit cashLimit = new CashLimit();
+						cashLimit.setRegistrationId(reg.get_id());
+						cashLimit.setCurrentDailyLimit("1000");
+						cashLimit.setCurrentMonthlyLimit("30000");
+						cashLimit.setStatus("InActive");
+						cashLimit.setDate(new Date());
 						String subject = userAccount.getUsername()
 								+ "activate your account to get your special Welcome Bonus!";
 						String msg = "";

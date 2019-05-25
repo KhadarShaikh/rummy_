@@ -66,6 +66,17 @@ public class UserAccount implements Serializable {
 	@JsonProperty("mailId")
 	private String mailId;
 
+	@JsonProperty("kyc")
+	private String kyc;
+
+	public String getKyc() {
+		return kyc;
+	}
+
+	public void setKyc(String kyc) {
+		this.kyc = kyc;
+	}
+
 	public String getNewPwd() {
 		return newPwd;
 	}

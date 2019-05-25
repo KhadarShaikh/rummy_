@@ -1,6 +1,7 @@
 package com.rummy.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -24,6 +25,9 @@ public class CashLimit implements Serializable {
 
 	@JsonProperty("monthlyLimit")
 	private String monthlyLimit;
+	
+	@JsonProperty("date")
+	private Date date;
 
 	@JsonProperty("currentDailyLimit")
 	private String currentDailyLimit;
@@ -36,6 +40,25 @@ public class CashLimit implements Serializable {
 
 	@JsonProperty("cashAddedMonth")
 	private String cashAddedMonth;
+
+	@JsonProperty("status")
+	private String status;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public ObjectId get_id() {
 		return _id;

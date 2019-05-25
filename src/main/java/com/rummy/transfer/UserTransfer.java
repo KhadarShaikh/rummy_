@@ -78,6 +78,39 @@ public class UserTransfer implements Serializable {
 	@JsonProperty("mailId")
 	private String mailId;
 
+	@JsonProperty("kyc")
+	private String kyc;
+
+	@JsonProperty("otpVal")
+	private String otpVal;
+
+	@JsonProperty("operationType")
+	private String operationType;
+
+	public String getOperationType() {
+		return operationType;
+	}
+
+	public void setOperationType(String operationType) {
+		this.operationType = operationType;
+	}
+
+	public String getOtpVal() {
+		return otpVal;
+	}
+
+	public void setOtpVal(String otpVal) {
+		this.otpVal = otpVal;
+	}
+
+	public String getKyc() {
+		return kyc;
+	}
+
+	public void setKyc(String kyc) {
+		this.kyc = kyc;
+	}
+
 	public String getNewPwd() {
 		return newPwd;
 	}
