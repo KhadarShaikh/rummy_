@@ -1,5 +1,7 @@
 package com.rummy.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,11 @@ public class LimitTaskPlanner {
 	@Autowired
 	CashLimitDAO cashLimitDAO;
 
-	@Scheduled(cron = "0 0 0 * * ?")
-	public void run() {
+	// @Scheduled(cron = "0 0 0 * * ?")
+	@Scheduled(cron = "*/5 * * * * ?")
+	public void run() throws ParseException {
 		try {
+			System.out.println("LIMIT TASK PLANNER...");
 			DB db = mongoDBClient.getReadMongoDB();
 			cashLimitDAO.getCollection("cashLimit", db);
 			cashLimitDAO.setPojo(new CashLimit());
@@ -29,11 +33,17 @@ public class LimitTaskPlanner {
 			MongoSortVO sort = new MongoSortVO();
 			sort.setPrimaryKey("_id");
 			sort.setPrimaryOrderBy(MongoOrderByEnum.DESC);
+
+			SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm:SS");
+
 			CashLimit cashLim = new CashLimit();
 			for (CashLimit cashLimit : cashLimitDAO.getAllObjects(sort)) {
 				if (cashLimit.getStatus().equals("InActive")) {
-					int i = cashLimit.getDate().toString().compareTo(new Date().toString());
-					if (i == 0) {
+					Date storedDate = format.parse(cashLimit.getDate().toString());
+					long diff = storedDate.getTime() - new Date().getTime();
+					long diffHours = diff / (60 * 60 * 1000);
+					System.out.println(diffHours);
+					if (diffHours >= 72) {
 						cashLim.set_id(cashLimit.get_id());
 						cashLim.setStatus("Active");
 						cashLimitDAO.save(cashLim);

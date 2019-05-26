@@ -42,6 +42,8 @@
 		init-method="initDataBase">
 	</bean>
 
+	<bean id="limitTaskPlanner" class="com.rummy.util.LimitTaskPlanner"></bean>
+
 	<bean id="mongoDAO" class="com.rummy.dao.MongoDAO"></bean>
 
 	<bean id="accessTokenDAO" class="com.rummy.dao.AccessTokenDAO"></bean>
