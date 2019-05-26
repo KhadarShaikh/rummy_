@@ -1,1 +1,1 @@
-resourceApp.constant('APIURL', 'http://localhost:8081');
+resourceApp.constant('APIURL', 'http://localhost:8080');
