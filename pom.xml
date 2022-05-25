@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.org.springframework.security>4.2.3.RELEASE</version.org.springframework.security>
 		<spring.core.version>4.3.9.RELEASE</spring.core.version>
-		<spring.security.version>4.0.4.RELEASE</spring.security.version>
+		<spring.security.version>5.5.7</spring.security.version>
 		<spring.data.mongodb.version>1.4.0.M1</spring.data.mongodb.version>
 		<version.com.sun.jersey.json>1.19.4</version.com.sun.jersey.json>
 		<version.org.glassfish.jersey>2.26-b07</version.org.glassfish.jersey>
